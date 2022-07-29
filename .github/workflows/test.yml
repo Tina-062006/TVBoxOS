@@ -5,7 +5,7 @@ on:
     - cron: 00 0-23 * * *
   push:
     branches:
-      - master
+      - UI
   workflow_dispatch:
 
 jobs:
