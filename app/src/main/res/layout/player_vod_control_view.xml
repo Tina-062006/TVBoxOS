@@ -214,6 +214,20 @@
                 android:textSize="@dimen/ts_20" />
 
             <TextView
+                android:id="@+id/play_time_reset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/vs_2"
+                android:layout_marginRight="@dimen/vs_2"
+                android:background="@drawable/button_dialog_main"
+                android:focusable="true"
+                android:gravity="center"
+                android:padding="@dimen/vs_10"
+                android:text="↺"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/ts_20" />
+
+            <TextView
                 android:id="@+id/play_time_end"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -246,20 +260,8 @@
                 android:text="1S"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/ts_20" />
-            <!--添加片头片尾重置按钮-->
-            <TextView
-                android:id="@+id/play_time_reset"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/vs_2"
-                android:layout_marginRight="@dimen/vs_2"
-                android:background="@drawable/button_dialog_main"
-                android:focusable="true"
-                android:gravity="center"
-                android:padding="@dimen/vs_10"
-                android:text="↺"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/ts_20" />
+
+
         </LinearLayout>
 
 
@@ -353,32 +355,13 @@
         android:visibility="gone"
         tools:visibility="visible">
 
-        <TextView
-            android:id="@+id/tv_info_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:padding="@dimen/vs_20"
-            android:text="TvInfo"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/ts_24"
-            tools:ignore="DuplicateIds" />
 
-        <TextView
-            android:id="@+id/tvDate"
-            android:layout_width="wrap_content"
+        <DigitalClock
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:ellipsize="end"
             android:gravity="right|center_vertical"
-            android:padding="@dimen/vs_20"
-            android:text=""
-            android:textAlignment="gravity"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/ts_24"
-            android:textStyle="bold" />
+            android:textSize="24sp" />
 
         <LinearLayout
             android:layout_width="@dimen/vs_280"

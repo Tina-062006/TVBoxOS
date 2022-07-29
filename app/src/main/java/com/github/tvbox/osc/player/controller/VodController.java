@@ -32,10 +32,7 @@ import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.BreakIterator;
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Date;
 
 import xyz.doikki.videoplayer.player.VideoView;
 import xyz.doikki.videoplayer.util.PlayerUtils;
@@ -105,7 +102,11 @@ public class VodController extends BaseController {
     TextView mPlayerTimeStartBtn;
     TextView mPlayerTimeSkipBtn;
     TextView mPlayerTimeStepBtn;
-    TextView mtvDate;
+    
+	
+	Handler myHandle;
+    Runnable myRunnable;
+    int myHandleSeconds = 5000;//闲置多少毫秒秒关闭底栏  默认5秒
 
     @Override
     protected void initView() {
@@ -130,7 +131,14 @@ public class VodController extends BaseController {
         mPlayerTimeStartBtn = findViewById(R.id.play_time_start);
         mPlayerTimeSkipBtn = findViewById(R.id.play_time_end);
         mPlayerTimeStepBtn = findViewById(R.id.play_time_step);
-        mtvDate = findViewById(R.id.tvDate);
+        
+        myHandle=new Handler();
+        myRunnable = new Runnable() {
+            @Override
+            public void run() {
+                hideBottom();
+            }
+        };
 
         mGridView.setLayoutManager(new V7LinearLayoutManager(getContext(), 0, false));
         ParseAdapter parseAdapter = new ParseAdapter();
@@ -206,6 +214,8 @@ public class VodController extends BaseController {
         mPlayerScaleBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+				myHandle.removeCallbacks(myRunnable);
+                myHandle.postDelayed(myRunnable, myHandleSeconds);
                 try {
                     int scaleType = mPlayerConfig.getInt("sc");
                     scaleType++;
@@ -223,6 +233,8 @@ public class VodController extends BaseController {
         mPlayerSpeedBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+                myHandle.removeCallbacks(myRunnable);
+                myHandle.postDelayed(myRunnable, myHandleSeconds);
                 try {
                     float speed = (float) mPlayerConfig.getDouble("sp");
                     speed += 0.25f;
@@ -240,6 +252,8 @@ public class VodController extends BaseController {
         mPlayerBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+            	myHandle.removeCallbacks(myRunnable);
+                myHandle.postDelayed(myRunnable, myHandleSeconds);
                 try {
                     int playerType = mPlayerConfig.getInt("pl");
                     boolean playerVail = false;
@@ -296,6 +310,8 @@ public class VodController extends BaseController {
         findViewById(R.id.play_time_reset).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                myHandle.removeCallbacks(myRunnable);
+                myHandle.postDelayed(myRunnable, myHandleSeconds);
                 try {
                     mPlayerConfig.put("et", 0);
                     mPlayerConfig.put("st", 0);
@@ -309,6 +325,8 @@ public class VodController extends BaseController {
         mPlayerTimeStartBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+                myHandle.removeCallbacks(myRunnable);
+                myHandle.postDelayed(myRunnable, myHandleSeconds);
                 try {
                     int step = Hawk.get(HawkConfig.PLAY_TIME_STEP, 5);
                     int st = mPlayerConfig.getInt("st");
@@ -327,6 +345,8 @@ public class VodController extends BaseController {
         mPlayerTimeSkipBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+                myHandle.removeCallbacks(myRunnable);
+                myHandle.postDelayed(myRunnable, myHandleSeconds);
                 try {
                     int step = Hawk.get(HawkConfig.PLAY_TIME_STEP, 5);
                     int et = mPlayerConfig.getInt("et");
@@ -345,6 +365,8 @@ public class VodController extends BaseController {
         mPlayerTimeStepBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+                myHandle.removeCallbacks(myRunnable);
+                myHandle.postDelayed(myRunnable, myHandleSeconds);
                 int step = Hawk.get(HawkConfig.PLAY_TIME_STEP, 5);
                 step += 5;
                 if (step > 30) {
@@ -396,14 +418,6 @@ public class VodController extends BaseController {
 
     public void setTitle(String playTitleInfo) {
         mPlayTitle.setText(playTitleInfo);
-    }
-
-    public void run() {
-        Date date = new Date();
-        @SuppressLint("SimpleDateFormat")
-        SimpleDateFormat timeFormat = new SimpleDateFormat("dd MMM yyyy" + ", " + "EE hh:mm aa");
-        mtvDate.setText(timeFormat.format(date));
-        mHandler.postDelayed((Runnable) this, 1000);
     }
 
     public void resetSpeed() {
@@ -579,16 +593,10 @@ public class VodController extends BaseController {
                 }
 //            } else if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {   // takagen99 : Up to show
             } else if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN || keyCode == KeyEvent.KEYCODE_DPAD_UP) {
+				myHandle.removeCallbacks(myRunnable);
                 if (!isBottomVisible()) {
                     showBottom();
-
-                    // takagen99 : Hide after 10 seconds
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            hideBottom();
-                        }
-                    }, 10000);
+					myHandle.postDelayed(myRunnable, myHandleSeconds);
                     return true;
                 }
             }
@@ -605,17 +613,11 @@ public class VodController extends BaseController {
 
     @Override
     public boolean onSingleTapConfirmed(MotionEvent e) {
+		myHandle.removeCallbacks(myRunnable);	
         if (!isBottomVisible()) {
             showBottom();
-
-            // takagen99 : Hide after 10 seconds
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    hideBottom();
-                }
-            }, 10000);
-
+ 			// 闲置计时关闭
+            myHandle.postDelayed(myRunnable, myHandleSeconds);
         } else {
             hideBottom();
         }
