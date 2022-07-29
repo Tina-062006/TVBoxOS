@@ -31,7 +31,7 @@ jobs:
           git clone ${{ env.upstreamCode }} TVBoxOS
           cd TVBoxOS
           git checkout ${{ env.commit }}
-          echo "tag=$(git log --date=format:'UI %Y%m%d-%H%M' --pretty=format:%cd ${{ env.commitS }} -1)" >> $GITHUB_ENV
+          echo "tag=$(git log --date=format:'%Y%m%d-%H%M' --pretty=format:%cd ${{ env.commitS }} -1)" >> $GITHUB_ENV
           zip -q -x ".git/*" -r ${{ env.commitS }}-source.zip .
       - name: Release Apk Sign
         if: ${{ env.commit }}
@@ -72,7 +72,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         if: ${{ env.commit }}
         with:
-          name: ${{ env.tag }}
+          name: UI ${{ env.tag }}
           tag_name: ${{ env.tag }}
           body: ${{ env.commit }}
           files: |
