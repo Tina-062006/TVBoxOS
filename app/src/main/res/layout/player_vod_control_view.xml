@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="fill_parent">
 
     <LinearLayout
         android:id="@+id/bottom_container"
@@ -20,24 +20,27 @@
         android:visibility="gone"
         tools:visibility="visible">
 
+
         <DigitalClock
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="right|center_vertical"
+            android:gravity="right|top"
             android:textColor="@android:color/white"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:visibility="visible" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
+            android:layout_gravity="center"
             android:layout_marginBottom="@dimen/vs_20"
-            android:gravity="left"
+            android:gravity="center"
             android:orientation="horizontal">
 
-			<TextView
+
+            <TextView
                 android:id="@+id/tv_info_name"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:ellipsize="end"
@@ -55,7 +58,6 @@
                 android:visibility="visible" />
 
         </LinearLayout>
-
 
 
         <LinearLayout
@@ -362,19 +364,16 @@
         android:visibility="gone"
         tools:visibility="visible">
 
-
-        <DigitalClock
+        <AnalogClock
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right|center_vertical"
-            android:textColor="@android:color/white"
-            android:textSize="24sp" />
+            android:layout_height="match_parent"
+            android:visibility="visible" />
+
 
         <LinearLayout
             android:layout_width="@dimen/vs_280"
             android:layout_height="@dimen/vs_200"
-            android:layout_gravity="center"
-            android:background="@drawable/shape_user_focus"
+            android:layout_gravity="left"
             android:focusable="false"
             android:focusableInTouchMode="false"
             android:gravity="center"
@@ -411,7 +410,6 @@
         android:layout_width="@dimen/vs_200"
         android:layout_height="@dimen/vs_100"
         android:layout_gravity="center"
-        android:background="@drawable/shape_user_focus"
         android:focusable="false"
         android:focusableInTouchMode="false"
         android:gravity="center"
@@ -426,7 +424,7 @@
         android:id="@+id/tv_progress_container"
         android:layout_width="@dimen/vs_280"
         android:layout_height="@dimen/vs_200"
-        android:layout_gravity="center"
+        android:layout_gravity="left"
         android:background="@drawable/shape_user_focus"
         android:focusable="false"
         android:focusableInTouchMode="false"
@@ -466,6 +464,6 @@
         android:indeterminateOnly="true"
         android:tag="vod_control_loading"
         android:visibility="gone"
-        tools:visibility="gone" />
+        tools:visibility="visible" />
 
 </FrameLayout>

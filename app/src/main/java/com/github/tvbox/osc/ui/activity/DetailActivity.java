@@ -153,7 +153,7 @@ public class DetailActivity extends BaseActivity {
             playFragment = new PlayFragment();
             getSupportFragmentManager().beginTransaction().add(R.id.previewPlayer, playFragment).commit();
             getSupportFragmentManager().beginTransaction().show(playFragment).commitAllowingStateLoss();
-            
+
         }
         new Handler().postDelayed(new Runnable() {
             @Override

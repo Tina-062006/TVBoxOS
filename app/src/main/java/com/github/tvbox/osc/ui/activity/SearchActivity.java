@@ -210,7 +210,7 @@ public class SearchActivity extends BaseActivity {
                 .params("plat", 2)
                 .params("ver", 0)
                 .params("num", 10)
-                .params("otype", "json")
+                .params("type", "json")
                 .params("query", key)
                 .execute(new AbsCallback<String>() {
                     @Override
@@ -247,7 +247,7 @@ public class SearchActivity extends BaseActivity {
         }
         // 加载热词
         OkGo.<String>get("https://node.video.qq.com/x/api/hot_mobilesearch")
-                .params("channdlId", "0")
+                .params("channelId", "0")
                 .params("_", System.currentTimeMillis())
                 .execute(new AbsCallback<String>() {
                     @Override
