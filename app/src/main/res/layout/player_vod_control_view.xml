@@ -365,15 +365,17 @@
         tools:visibility="visible">
 
         <AnalogClock
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|top"
+            android:layout_marginTop="@dimen/vs_20"
             android:visibility="visible" />
 
 
         <LinearLayout
             android:layout_width="@dimen/vs_280"
             android:layout_height="@dimen/vs_200"
-            android:layout_gravity="left"
+            android:layout_gravity="center"
             android:focusable="false"
             android:focusableInTouchMode="false"
             android:gravity="center"
@@ -424,7 +426,7 @@
         android:id="@+id/tv_progress_container"
         android:layout_width="@dimen/vs_280"
         android:layout_height="@dimen/vs_200"
-        android:layout_gravity="left"
+        android:layout_gravity="center"
         android:background="@drawable/shape_user_focus"
         android:focusable="false"
         android:focusableInTouchMode="false"
