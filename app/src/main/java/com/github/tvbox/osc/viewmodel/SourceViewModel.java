@@ -630,7 +630,7 @@ public class SourceViewModel extends ViewModel {
         }
     }
     // playerContent
-    public void getPlay(String sourceKey, String playFlag, String progressKey, String url) {
+    public void getPlay(String sourceKey, String playFlag, String progressKey, String url, String subtitleKey) {
         SourceBean sourceBean = ApiConfig.get().getSource(sourceKey);
         int type = sourceBean.getType();
         if (type == 3) {
@@ -643,6 +643,7 @@ public class SourceViewModel extends ViewModel {
                         JSONObject result = new JSONObject(json);
                         result.put("key", url);
                         result.put("proKey", progressKey);
+                        result.put("subtKey", subtitleKey);
                         if (!result.has("flag"))
                             result.put("flag", playFlag);
                         playResult.postValue(result);
@@ -808,9 +809,9 @@ public class SourceViewModel extends ViewModel {
                         for (String s : str) {
                             String[] ss = s.split("\\$");
                             if (ss.length > 0) {
-                                if (ss.length == 2) {
+                                if (ss.length >= 2) {
                                     infoBeanList.add(new Movie.Video.UrlBean.UrlInfo.InfoBean(ss[0], ss[1]));
-                                } else if (ss.length == 1) {
+                                } else {
                                     infoBeanList.add(new Movie.Video.UrlBean.UrlInfo.InfoBean((infoBeanList.size() + 1) + "", ss[0]));
                                 }
                             }
@@ -850,8 +851,15 @@ public class SourceViewModel extends ViewModel {
                             for (String s : str) {
                                 if (s.contains("$")) {
                                     String[] ss = s.split("\\$");
-                                    if (ss.length >= 2) {
-                                        infoBeanList.add(new Movie.Video.UrlBean.UrlInfo.InfoBean(ss[0], ss[1]));
+//                                    if (ss.length >= 2) {
+//                                        infoBeanList.add(new Movie.Video.UrlBean.UrlInfo.InfoBean(ss[0], ss[1]));
+//                                    }
+                                    if (ss.length > 0) {
+                                        if (ss.length >= 2) {
+                                            infoBeanList.add(new Movie.Video.UrlBean.UrlInfo.InfoBean(ss[0], ss[1]));
+                                        } else {
+                                            infoBeanList.add(new Movie.Video.UrlBean.UrlInfo.InfoBean((infoBeanList.size() + 1) + "", ss[0]));
+                                        }
                                     }
                                 }
                             }
